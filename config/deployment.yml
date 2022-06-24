@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpp-app
+  labels:
+    app: tpp-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpp-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: tpp-app
+      # annotations:
+      #   vault.hashicorp.com/agent-inject: 'true'
+      #   vault.hashicorp.com/role: 'tpp-app'
+      #   vault.hashicorp.com/agent-inject-secret-mongostring.txt: 'kv/data/tpp-app/production'
+      #   vault.hashicorp.com/agent-inject-template-mongostring.txt: |
+      #     {{- with secret "kv/data/tpp-app/production" -}}
+      #     {{ .Data.data.mongoString }}
+      #     {{- end -}}
+    spec:
+      # serviceAccountName: tpp-app-service-account
+      containers:
+      - name: tpp-app
+        image: <IMAGE>
+        imagePullPolicy: "Never"
+        # env:
+        #   - name: PORT
+        #     value: "3000"
+        #   - name: VAULT_SECRETS_FILE_PATH
+        #     value: /vault/secrets/
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 1
+            memory: 256Mi
+          limits:
+            cpu: 1
+            memory: 512Mi
+      #   volumeMounts:
+      #   - name: mongo-ca-certificate
+      #     mountPath: "/etc/certs"
+      #     readOnly: true
+      # volumes:
+      # - name: mongo-ca-certificate
+      #   secret:
+      #     secretName: mongo-ca-certificate.cer
