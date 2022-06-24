@@ -13,8 +13,3 @@ FROM nginx:alpine
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 #Copy default nginx configuration
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
-
-
-
-FROM nginx:alpine
-COPY ./dist/tpp-app ./usr/share/nginx/html
