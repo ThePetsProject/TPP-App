@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tpp-app-service
+  labels:
+    app: tpp-app-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    name: tpp-app-port
+    protocol: TCP
+  selector:
+    app: tpp-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
