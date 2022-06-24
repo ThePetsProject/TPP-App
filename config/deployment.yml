@@ -31,7 +31,7 @@ spec:
       containers:
       - name: tpp-app
         image: <IMAGE>
-        imagePullPolicy: "Never"
+        imagePullPolicy: "Always"
         # env:
         #   - name: PORT
         #     value: "3000"
@@ -41,10 +41,10 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            cpu: 1
+            cpu: "1"
             memory: 256Mi
           limits:
-            cpu: 1
+            cpu: "1"
             memory: 512Mi
       #   volumeMounts:
       #   - name: mongo-ca-certificate
