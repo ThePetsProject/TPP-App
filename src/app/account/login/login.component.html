@@ -1,0 +1,14 @@
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <app-input type="email" placeholder="email" [parent]="loginForm" controlName="email"></app-input>
+  <app-input type="password" placeholder="password" [parent]="loginForm" controlName="password"></app-input>
+
+  <button
+    type="submit"
+    [disabled]="!loginForm.valid"
+    class="px-3 py-1 rounded border-[1px] transition-all duration-500"
+    [class.bg-slate-300]="!loginForm.valid"
+    [class.hover:bg-sky-600]="loginForm.valid"
+    [class.bg-sky-500]="loginForm.valid"
+  >Enviar</button>
+
+</form>

@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  config: {
+    baseUrl: 'http://localhost',
+    login: {
+      path: ':3100/api/v1/account/login',
+    },
+    register: {
+      path: ':3000/api/v1/account/register',
+    },
+    jwtValidate: {
+      path: ':3400/api/v1/jwt/validate',
+    },
+  },
 };
 
 /*
