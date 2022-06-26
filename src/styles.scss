@@ -50,3 +50,18 @@ input::placeholder {
     size: 90%;
   }
 }
+
+.alert {
+  &-red {
+    @apply shadow-md;
+    @apply rounded;
+    @apply mt-10;
+    @apply py-2;
+    @apply pl-2;
+    @apply border-l-8;
+    @apply border-l-red-500;
+  }
+  .message {
+    @apply text-gray-500;
+  }
+}

@@ -7,7 +7,9 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { BackendErrorHandlerService } from 'src/app/services/backend-error-handler.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { BackendResponse } from 'src/app/shared/interfaces/backend-response';
 
 @Component({
   selector: 'app-register',
@@ -16,10 +18,12 @@ import { RegisterService } from 'src/app/services/register.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  errorMessage!: string;
 
   constructor(
     private fb: FormBuilder,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private backendErrorHandler: BackendErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -50,13 +54,10 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(email, password).subscribe({
       next: (response) => {
         console.log(response);
-        // TODO: Redirect to account
       },
       error: (error) => {
-        console.error(error);
-      },
-      complete: () => {
-        console.log('COMPLETE SUBCSRIP');
+        this.errorMessage =
+          this.backendErrorHandler.handleUserErrorMessage(error);
       },
     });
   }

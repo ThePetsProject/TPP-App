@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { ValidateJwtResponse } from '../shared/interfaces/validate-jwt-response';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +18,15 @@ export class JwtService {
     localStorage.removeItem(key);
   }
 
-  validateJWT(token: string): Observable<Object> {
-    const validateUrl = `${environment.config.baseUrl}${environment.config.login.path}`;
-    return this.httpClient.post(validateUrl, { token });
+  getAccToken(): string {
+    return localStorage.getItem('accToken') || '';
+  }
+  getRefToken(): string {
+    return localStorage.getItem('refToken') || '';
+  }
+
+  validJWT(token: string): Observable<ValidateJwtResponse> {
+    const validateUrl = `${environment.config.baseUrl}${environment.config.jwtValidate.path}`;
+    return this.httpClient.post<ValidateJwtResponse>(validateUrl, { token });
   }
 }

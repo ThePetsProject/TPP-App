@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JwtService } from 'src/app/services/jwt.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private fb: FormBuilder,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,14 +42,10 @@ export class LoginComponent implements OnInit {
         const { accToken, refToken } = response as LoginResponse;
         this.jwtService.saveJWT('accToken', accToken);
         this.jwtService.saveJWT('refToken', refToken);
-
-        // TODO: Redirect to account
+        this.router.navigate(['/account/my-account']);
       },
       error: (error) => {
-        console.error(error);
-      },
-      complete: () => {
-        console.log('COMPLETE SUBCSRIP');
+        // TODO: Handle errors
       },
     });
   }

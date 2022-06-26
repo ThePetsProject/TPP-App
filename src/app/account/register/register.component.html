@@ -11,7 +11,7 @@
     <button
       type="submit"
       [disabled]="!registerForm.valid"
-      class="px-3 py-1 rounded border-[1px] transition-all duration-300 font-bold text-white"
+      class="px-3 py-1 rounded-full border-[1px] transition-all duration-300 font-bold text-white"
       [class.bg-slate-300]="!registerForm.valid"
       [class.cursor-not-allowed]="!registerForm.valid"
       [class.text-slate-500]="!registerForm.valid"
@@ -21,8 +21,14 @@
   </section>
 
   <section>
-    <div *ngIf="registerForm.invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
-      <p *ngIf="registerForm.errors?.['notSame']" class="bg-red-800 rounded px-3 py-1 mt-2 text-center text-white"><small>Las claves deben coincidir</small></p>
+    <div class="alert alert-red" *ngIf="registerForm.invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+      <p><b>¡Oops!</b></p>
+      <p *ngIf="registerForm.errors?.['notSame']"><small>Las claves no coinciden.</small></p>
+    </div>
+
+    <div class="alert alert-red" *ngIf="errorMessage && errorMessage.length > 0 && registerForm.valid">
+      <p><b>¡Oops!</b></p>
+      <p class="message"><small>{{errorMessage}}</small></p>
     </div>
   </section>
 </form>
