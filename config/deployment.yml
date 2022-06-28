@@ -4,8 +4,6 @@ metadata:
   name: tpp-app-service
   labels:
     app: tpp-app-service
-  annotations:
-    konghq.com/plugins: service-cors-plugin
 spec:
   type: ClusterIP
   ports:
