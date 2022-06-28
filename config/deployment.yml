@@ -10,9 +10,9 @@ spec:
   - port: 80
     name: http
     protocol: TCP
-  # - port: 443
-  #   name: https
-  #   protocol: TCP
+  - port: 443
+    name: https
+    protocol: TCP
   selector:
     app: tpp-app
 ---
