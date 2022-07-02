@@ -4,6 +4,11 @@ import { AuthGuardService } from './auth/auth-guard.service';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () =>
+      import('./pages/home/home.module').then((m) => m.HomeModule),
+  },
+  {
     path: 'login',
     loadChildren: () =>
       import('./account/login/login.module').then((m) => m.LoginModule),
@@ -16,23 +21,12 @@ const routes: Routes = [
       ),
   },
   {
-    path: '',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomeModule),
-  },
-  {
     path: 'account',
-    children: [
-      { path: '', redirectTo: 'my-account', pathMatch: 'full' },
-      {
-        path: 'my-account',
-        canActivate: [AuthGuardService],
-        loadChildren: () =>
-          import('./account/private/my-account/my-account.module').then(
-            (m) => m.MyAccountModule
-          ),
-      },
-    ],
+    canActivate: [AuthGuardService],
+    loadChildren: () =>
+      import('./account/private/my-account/my-account.module').then(
+        (m) => m.MyAccountModule
+      ),
   },
   { path: '**', redirectTo: '' },
 ];

@@ -1,7 +1,7 @@
 <app-loader *ngIf="loading"></app-loader>
-<header class="py-5 bg-violet-500">
+<header id="main-menu-header" class="bg-violet-500 w-full z-50 relative">
   <app-main-nav></app-main-nav>
 </header>
-<main class="container mx-auto pt-10">
+<main>
   <router-outlet></router-outlet>
 </main>

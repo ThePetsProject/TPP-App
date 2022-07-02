@@ -7,9 +7,9 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BackendErrorHandlerService } from 'src/app/services/backend-error-handler.service';
 import { RegisterService } from 'src/app/services/register.service';
-import { BackendResponse } from 'src/app/shared/interfaces/backend-response';
 
 @Component({
   selector: 'app-register',
@@ -19,15 +19,21 @@ import { BackendResponse } from 'src/app/shared/interfaces/backend-response';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   errorMessage!: string;
+  baseSeconds = 5;
+  timerSeconds!: number;
+  success = false;
+  timerInterval!: ReturnType<typeof setInterval>;
 
   constructor(
     private fb: FormBuilder,
     private registerService: RegisterService,
-    private backendErrorHandler: BackendErrorHandlerService
+    private backendErrorHandler: BackendErrorHandlerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
+    this.startCountDown();
   }
 
   checkPasswords: ValidatorFn = (
@@ -42,23 +48,51 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group(
       {
         email: ['', [Validators.email, Validators.required]],
-        password: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         checkPassword: ['', [Validators.required]],
       },
       { validators: this.checkPasswords }
     );
   }
 
-  submit() {
+  startCountDown(): void {
+    this.timerInterval = setInterval(() => {
+      this.timerSeconds =
+        this.timerSeconds > 0 ? this.timerSeconds - 1 : this.clearCountDown();
+    }, 1000);
+  }
+
+  clearCountDown(): number {
+    clearInterval(this.timerInterval);
+    return 0;
+  }
+
+  onRegisterSuccess() {
+    this.success = true;
+    this.timerSeconds = this.baseSeconds;
+    this.startCountDown();
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, this.baseSeconds * 1000);
+  }
+
+  onRegisterError(error: any) {
+    this.errorMessage = this.backendErrorHandler.handleUserErrorMessage(error);
+    this.registerForm.get('email')?.setValue('');
+    this.registerForm.get('password')?.setValue('');
+    this.registerForm.get('checkPassword')?.setValue('');
+  }
+
+  submit = (): void => {
+    this.errorMessage = '';
     const { email, password } = this.registerForm.value;
     this.registerService.register(email, password).subscribe({
-      next: (response) => {
-        console.log(response);
+      next: () => {
+        this.onRegisterSuccess();
       },
       error: (error) => {
-        this.errorMessage =
-          this.backendErrorHandler.handleUserErrorMessage(error);
+        this.onRegisterError(error);
       },
     });
-  }
+  };
 }

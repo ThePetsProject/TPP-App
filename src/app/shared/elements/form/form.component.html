@@ -1,0 +1,29 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="flex flex-col p-7 rounded-md drop-shadow-md bg-white w-2/5 mx-auto"
+>
+  <header *ngIf="formTitle" class="mb-5 pb-1 border-b-violet-300 border-b-[1px] w-1/2 text-center mx-auto">
+    <h1 class="">{{formTitle}}</h1>
+  </header>
+  <ng-content select="[fields]"></ng-content>
+
+  <section *ngIf="buttonLabel" class="flex justify-end mt-5">
+    <button
+      type="submit"
+      [disabled]="!form.valid"
+      class="px-3 py-1 rounded-full border-[1px] transition-all duration-300 font-bold text-white"
+      [class.bg-slate-300]="!form.valid"
+      [class.cursor-not-allowed]="!form.valid"
+      [class.text-slate-500]="!form.valid"
+      [class.hover:bg-violet-500]="form.valid"
+      [class.bg-violet-400]="form.valid"
+    >{{buttonLabel}}</button>
+  </section>
+
+  <section>
+    <ng-content select="[errors]"></ng-content>
+  </section>
+
+  <ng-content *ngIf="success" select="[success]"></ng-content>
+</form>

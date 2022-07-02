@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "alerts";
+
+html {
+  font: {
+    size: 14px;
+  }
+}
+
 #tpp-spinner {
   display: inline-block;
   width: 50px;
@@ -48,20 +56,5 @@ input,
 input::placeholder {
   font: {
     size: 90%;
-  }
-}
-
-.alert {
-  &-red {
-    @apply shadow-md;
-    @apply rounded;
-    @apply mt-10;
-    @apply py-2;
-    @apply pl-2;
-    @apply border-l-8;
-    @apply border-l-red-500;
-  }
-  .message {
-    @apply text-gray-500;
   }
 }

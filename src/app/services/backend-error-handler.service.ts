@@ -6,18 +6,20 @@ interface CustomHttpResponseBase extends HttpResponseBase {
   error: BackendResponse;
 }
 
-interface Responses409 {
-  'User exists': string;
-}
-
 interface ResponsesCodes {
-  '409': Responses409;
+  '400': string;
+  '401': string;
+  '404': string;
+  '409': string;
+  '500': string;
 }
 
 const responses: ResponsesCodes = {
-  '409': {
-    'User exists': 'El usuario ya existe. Por favor, intenta de nuevo.',
-  },
+  '400': 'Ha ocurrido un error inesperado. Por favor intenta más tarde.',
+  '401': 'Usuario o clave inválida. Por favor, inenta de nuevo.',
+  '404': 'Usuario o clave inválida. Por favor, inenta de nuevo.',
+  '409': 'El usuario ya existe. Por favor, intenta de nuevo.',
+  '500': 'Ha ocurrido un error inesperado. Por favor intenta más tarde.',
 };
 
 @Injectable({
@@ -27,17 +29,6 @@ export class BackendErrorHandlerService {
   constructor() {}
 
   handleUserErrorMessage(error: CustomHttpResponseBase): string {
-    const backendResponse: BackendResponse = error.error;
-    const backendResponseMessage = backendResponse.message as string;
-    const errorCode = error.status;
-
-    if (errorCode === 500 || errorCode === 400)
-      return 'Ha ocurrido un error inesperado. Por favor intenta más tarde.';
-
-    const userMessage: string =
-      responses[errorCode.toString() as keyof ResponsesCodes][
-        backendResponseMessage as keyof Responses409
-      ];
-    return userMessage;
+    return responses[error.status.toString() as keyof ResponsesCodes];
   }
 }

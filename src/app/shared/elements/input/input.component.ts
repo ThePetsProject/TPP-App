@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -10,6 +10,8 @@ export class InputComponent implements OnInit {
   @Input('type') type = '';
   @Input('placeholder') placeholder = '';
   @Input('controlName') controlName = '';
+  @Input('label') label = '';
+  @Input('valid') valid = true;
   @Input() parent!: FormGroup;
 
   constructor() {}

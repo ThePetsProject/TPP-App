@@ -1,14 +1,24 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
-  <app-input type="email" placeholder="email" [parent]="loginForm" controlName="email"></app-input>
-  <app-input type="password" placeholder="password" [parent]="loginForm" controlName="password"></app-input>
+<app-form formTitle="Entrar"
+  [submitFunc]="submit"
+  [form]="loginForm"
+  buttonLabel="ENTRAR"
+  [errorMessage]="errorMessage"
+>
+  <ng-container fields>
+    <app-input type="email" label="Correo" placeholder="tu@correo.com" [parent]="loginForm" controlName="email"></app-input>
+    <app-input type="password" label="Clave" placeholder="Clave" [parent]="loginForm" controlName="password"></app-input>
+  </ng-container>
 
-  <button
-    type="submit"
-    [disabled]="!loginForm.valid"
-    class="px-3 py-1 rounded border-[1px] transition-all duration-500"
-    [class.bg-slate-300]="!loginForm.valid"
-    [class.hover:bg-sky-600]="loginForm.valid"
-    [class.bg-sky-500]="loginForm.valid"
-  >Enviar</button>
-
-</form>
+  <ng-container errors>
+    <div class="alert alert-red" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].value.length > 0">      
+      <p><b>¡Oops!</b></p>
+      <p class="message"><small>No es un correo válido.</small></p>
+    </div>
+    
+    <div class="alert alert-red" *ngIf="errorMessage && errorMessage.length > 0">
+      <p><b>¡Oops!</b></p>
+      <p class="message"><small>{{errorMessage}}</small></p>
+    </div>
+  
+  </ng-container>
+</app-form>

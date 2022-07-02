@@ -1,0 +1,17 @@
+.alert {
+  @apply mt-2;
+  @apply shadow-md;
+  @apply rounded;
+  @apply py-2;
+  @apply pl-2;
+  @apply border-l-8;
+  &-red {
+    @apply border-l-red-500;
+  }
+  &-success {
+    @apply border-l-green-500;
+  }
+  .message {
+    @apply text-gray-500;
+  }
+}

@@ -1,0 +1,21 @@
+@import "vars.scss";
+
+nav {
+  width: $accountMenuWidth;
+  padding-top: calc(2.5rem + $menuHeight);
+}
+a {
+  display: block;
+  color: white;
+  font: {
+    family: "Montserrat";
+    weight: 500;
+  }
+  text: {
+    transform: uppercase;
+  }
+  @apply px-10;
+  @apply py-2;
+  @apply hover:bg-violet-300;
+  @apply duration-500;
+}
