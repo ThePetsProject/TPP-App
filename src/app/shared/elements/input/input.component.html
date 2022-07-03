@@ -1,6 +1,6 @@
 <ng-container *ngIf="parent.get(controlName)" [formGroup]="parent">
   <div class="relative">
-    <label for="{{controlName}}" #labelDOM><small>{{label}}</small></label>
+    <label for="{{controlName}}" #labelDOM>{{label}}</label>
     <input
       id="{{controlName}}"
       type="{{type}}"
