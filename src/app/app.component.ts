@@ -1,7 +1,13 @@
-import { AfterViewInit, Component, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Renderer2,
+} from '@angular/core';
 import { LoaderService } from './services/loader.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
