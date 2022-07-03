@@ -15,6 +15,12 @@ export const environment = {
     jwtValidate: {
       path: ':3400/api/v1/jwt/validate',
     },
+    jwtRefresh: {
+      path: ':3400/api/v1/jwt/refresh',
+    },
+    accountData: {
+      path: ':3600/api/v1/account/data',
+    },
   },
 };
 
