@@ -1,7 +1,8 @@
 <form
   [formGroup]="form"
   (ngSubmit)="submit()"
-  class="flex flex-col p-7 rounded-md drop-shadow-md bg-white w-2/5 mx-auto"
+  class="flex flex-col p-7 rounded-md drop-shadow-md bg-white mx-auto"
+  [ngClass]="widthClass"
 >
   <header *ngIf="formTitle" class="mb-5 pb-1 border-b-violet-300 border-b-[1px] w-1/2 text-center mx-auto">
     <h1 class="">{{formTitle}}</h1>

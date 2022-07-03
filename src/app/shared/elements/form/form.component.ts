@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
   @Input() submitFunc!: (args?: any) => void;
   @Input() form!: FormGroup;
   @Input() success!: boolean;
+  @Input() widthClass = 'w-2/5';
 
   constructor() {}
 
