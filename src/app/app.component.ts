@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  Renderer2,
 } from '@angular/core';
 import { LoaderService } from './services/loader.service';
 
@@ -16,10 +15,7 @@ export class AppComponent implements AfterViewInit {
   title = 'tpp-app';
   loading = false;
 
-  constructor(
-    private loaderService: LoaderService,
-    private renderer: Renderer2
-  ) {}
+  constructor(private loaderService: LoaderService) {}
 
   ngAfterViewInit() {
     this.loaderService.httpProgress().subscribe((status: boolean) => {
