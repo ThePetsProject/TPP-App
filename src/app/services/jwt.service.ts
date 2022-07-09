@@ -25,8 +25,13 @@ export class JwtService {
     return localStorage.getItem('refToken') || '';
   }
 
-  validJWT(token: string): Observable<ValidateJwtResponse> {
+  validateJWT(token: string): Observable<ValidateJwtResponse> {
     const validateUrl = `${environment.config.baseUrl}${environment.config.jwtValidate.path}`;
     return this.httpClient.post<ValidateJwtResponse>(validateUrl, { token });
+  }
+
+  refreshToken(refToken: string) {
+    const refreshUrl = `${environment.config.baseUrl}${environment.config.jwtRefresh.path}`;
+    return this.httpClient.post<ValidateJwtResponse>(refreshUrl, { refToken });
   }
 }

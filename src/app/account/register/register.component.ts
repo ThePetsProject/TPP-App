@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { BackendErrorHandlerService } from 'src/app/services/backend-error-handler.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { checkPasswords } from 'src/app/shared/utils/check-passwords';
 
 @Component({
   selector: 'app-register',
@@ -36,14 +37,6 @@ export class RegisterComponent implements OnInit {
     this.startCountDown();
   }
 
-  checkPasswords: ValidatorFn = (
-    group: AbstractControl
-  ): ValidationErrors | null => {
-    let pass = group.get('password')?.value;
-    let confirmPass = group.get('checkPassword')?.value;
-    return pass === confirmPass ? null : { notSame: true };
-  };
-
   buildForm() {
     this.registerForm = this.fb.group(
       {
@@ -51,7 +44,7 @@ export class RegisterComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         checkPassword: ['', [Validators.required]],
       },
-      { validators: this.checkPasswords }
+      { validators: checkPasswords }
     );
   }
 

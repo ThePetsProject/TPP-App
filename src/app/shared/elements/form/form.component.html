@@ -2,18 +2,32 @@
   [formGroup]="form"
   (ngSubmit)="submit()"
   class="flex flex-col p-7 rounded-md drop-shadow-md bg-white mx-auto"
-  [ngClass]="widthClass"
+  [ngClass]="extraClasses"
 >
   <header *ngIf="formTitle" class="mb-5 pb-1 border-b-violet-300 border-b-[1px] w-1/2 text-center mx-auto">
-    <h1 class="">{{formTitle}}</h1>
+    <h1>{{formTitle}}</h1>
   </header>
+
+  <div class="mb-5">
+    <ng-content select="[description]"></ng-content>
+  </div>
+
   <ng-content select="[fields]"></ng-content>
 
-  <section *ngIf="buttonLabel" class="flex justify-end mt-5">
+  <section *ngIf="buttonLabel" class="flex justify-end mt-5 items-center w-full">
+    <div *ngIf="showRecoverPwd" (click)="openModal()" class="mr-auto hover:text-teal-500 cursor-pointer"><small>Recuperar clave</small></div>
+    <button
+      type="button"
+      *ngIf="isModal"
+      class="mr-5 px-5 py-1 rounded-full border-[1px] transition-all duration-300 font-bold text-white bg-teal-300 hover:bg-teal-500"
+      (click)="closeModal()"
+    >{{cancelButtonLabel}}</button>
+
+    
     <button
       type="submit"
       [disabled]="!form.valid"
-      class="px-3 py-1 rounded-full border-[1px] transition-all duration-300 font-bold text-white"
+      class="px-5 py-1 rounded-full border-[1px] transition-all duration-300 font-bold text-white"
       [class.bg-slate-300]="!form.valid"
       [class.cursor-not-allowed]="!form.valid"
       [class.text-slate-500]="!form.valid"

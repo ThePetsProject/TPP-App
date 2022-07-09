@@ -20,7 +20,10 @@ export class AuthGuardService implements CanActivate {
     | boolean
     | UrlTree {
     return this.auth.isAuthenticated().pipe(
-      map((response) => response.email !== null),
+      map((response) => {
+        this.auth.setLoggedin(response.email !== null);
+        return response.email !== null;
+      }),
       catchError(() => this.router.navigate(['/login']))
     );
   }

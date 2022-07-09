@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,17 +9,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class FormComponent implements OnInit {
   @Input('formTitle') formTitle = '' as string;
   @Input() buttonLabel = 'ENVIAR';
+  @Input() cancelButtonLabel = 'CANCELAR';
   @Input() errorMessage!: string;
-  @Input() submitFunc!: (args?: any) => void;
+  @Input() submitFn!: (args?: any) => void;
+  @Input() cancelButtonFn!: (args?: any) => void;
+  @Input() modalFn!: (args?: any) => void;
   @Input() form!: FormGroup;
   @Input() success!: boolean;
-  @Input() widthClass = 'w-2/5';
+  @Input() cancelButton = false;
+  @Input() isModal = false;
+  @Input() extraClasses = 'w-2/5';
+  @Input() showRecoverPwd = false;
+
+  @Output() onOpenModal = new EventEmitter<boolean>();
+  @Output() onCloseModal = new EventEmitter<boolean>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   submit(args?: any) {
-    this.submitFunc(args);
+    this.submitFn(args);
+  }
+
+  closeModal() {
+    this.onCloseModal.emit(false);
+  }
+
+  openModal() {
+    this.onOpenModal.emit(true);
   }
 }

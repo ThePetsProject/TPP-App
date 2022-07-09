@@ -1,0 +1,13 @@
+<ng-container *ngIf="parent.get(controlName) && selectOptionsData.length > 0" [formGroup]="parent">
+  <div class="relative">
+    <label for="{{controlName}}" #labelDOM>{{label}}</label>
+    <select name="{{controlName}}" id="{{controlName}}"
+      (change)="change()"
+      class="w-full border-[1px] border-gray-300 py-2 px-2 rounded-md mb-2"
+      formControlName="{{controlName}}">
+      <option value="" disabled selected>Seleciona...</option>
+      <option *ngFor="let options of selectOptionsData; index as i" [value]="options.selectValue">{{options.selectLabel}}</option>
+
+    </select>
+  </div>
+</ng-container>

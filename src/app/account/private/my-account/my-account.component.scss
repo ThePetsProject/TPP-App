@@ -1,5 +1,10 @@
 @import "vars.scss";
 
 #account-content {
-  padding-left: calc(5rem + $accountMenuWidth);
+  @media (max-width: 640px) {
+    @apply container;
+  }
+  @media (min-width: 640px) {
+    padding-left: calc(5rem + $accountMenuWidth);
+  }
 }

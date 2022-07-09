@@ -5,10 +5,10 @@
   <nav id="main-nav">
     <ul class="flex justify-end">
       <li class="px-5"><a class="text-white hover:text-teal-300 duration-500" routerLink="">Inicio</a></li>
-      <li class="px-5" *ngIf="!isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="login">Entrar</a></li>
-      <li class="px-5" *ngIf="!isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="register">Registro</a></li>
-      <li class="px-5" *ngIf="isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="account">Cuenta</a></li>
-      <li class="px-5" *ngIf="isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="login" (click)="onLogout()">Salir</a></li>
+      <li class="px-5" *ngIf="!isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="login" routerLinkActive="text-teal-300">Entrar</a></li>
+      <li class="px-5" *ngIf="!isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="register" routerLinkActive="text-teal-300">Registro</a></li>
+      <li class="px-5" *ngIf="isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="account" routerLinkActive="text-teal-300">Cuenta</a></li>
+      <li class="px-5" *ngIf="isLoggedIn"><a class="text-white hover:text-teal-300 duration-500" routerLink="login" routerLinkActive="text-teal-300" (click)="onLogout()">Salir</a></li>
     </ul>
   </nav>
 </div>

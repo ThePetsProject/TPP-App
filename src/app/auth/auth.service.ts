@@ -13,13 +13,17 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
+  setLoggedin(loggedIn: boolean) {
+    this.loggedIn.next(loggedIn);
+  }
+
   constructor(private jwtService: JwtService) {}
 
   // isAuthenticated(): Observable<ValidateJwtResponse> {
   isAuthenticated() {
     const accToken = this.jwtService.getAccToken();
     const refToken = this.jwtService.getRefToken();
-    return this.jwtService.validJWT(accToken).pipe();
+    return this.jwtService.validateJWT(accToken);
   }
 
   login(accToken: string, refToken: string): void {

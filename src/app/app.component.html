@@ -1,5 +1,5 @@
-<app-loader *ngIf="loading"></app-loader>
-<header id="main-menu-header" class="bg-violet-500 w-full z-50 relative">
+<app-loader *ngIf="loaderService.isLoading$ | async"></app-loader>
+<header id="main-menu-header" class="bg-violet-500 w-full z-50 relative mb-10">
   <app-main-nav></app-main-nav>
 </header>
 <main>

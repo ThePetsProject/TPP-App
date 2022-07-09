@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { PetsDataRoutingModule } from './pets-data-routing.module';
 import { PetsDataComponent } from './pets-data.component';
-
+import { AccountSharedModule } from 'src/app/account/account-shared.module';
+import { ModalComponent } from 'src/app/shared/elements/modal/modal.component';
+import { ModalModule } from 'src/app/shared/elements/modal/modal.module';
 
 @NgModule({
-  declarations: [
-    PetsDataComponent
-  ],
+  declarations: [PetsDataComponent],
   imports: [
     CommonModule,
-    PetsDataRoutingModule
-  ]
+    PetsDataRoutingModule,
+    AccountSharedModule,
+    ModalModule,
+  ],
 })
-export class PetsDataModule { }
+export class PetsDataModule {}

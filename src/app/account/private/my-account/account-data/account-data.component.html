@@ -1,1 +1,35 @@
-<p>account-data works!</p>
+<app-form formTitle="Mis datos"
+  [submitFn]="submit"
+  [form]="accountDataForm"
+  buttonLabel="ACTUALIZAR"
+  [errorMessage]="errorMessage"
+  [success]="isSuccess"
+  extraClasses="w-10/12"
+>
+  <ng-container fields>
+    <app-input type="text" label="Nombre" placeholder="Ingresa tu nombre" [parent]="accountDataForm" controlName="name"></app-input>
+    <app-input type="text" label="Apellido(s)" placeholder="Ingresa tu(s) apellido(s)" [parent]="accountDataForm" controlName="surName"></app-input>
+    <app-input type="email" label="Correo" placeholder="tu@correo.com" [parent]="accountDataForm" controlName="email"></app-input>
+    <app-input type="password" label="Nueva clave" placeholder="Nueva clave" [parent]="accountDataForm" controlName="password"></app-input>
+    <app-input type="password" label="Repite tu nueva clave" placeholder="Repite tu nueva clave" [parent]="accountDataForm" controlName="checkPassword"></app-input>
+  </ng-container>
+
+  <ng-container errors>
+    <div class="alert alert-red" *ngIf="accountDataForm.controls['email'].invalid && accountDataForm.controls['email'].value.length > 0">      
+      <p><b>¡Oops!</b></p>
+      <p class="message"><small>No es un correo válido.</small></p>
+    </div>
+    
+    <div class="alert alert-red" *ngIf="errorMessage && errorMessage.length > 0">
+      <p><b>¡Oops!</b></p>
+      <p class="message"><small>{{errorMessage}}</small></p>
+    </div>  
+  </ng-container>
+
+  <ng-container success>
+    <div class="alert alert-success">
+      <p><b>¡Bien!</b></p>
+      <p class="message"><small>Hemos actualizado tus datos de manera correcta.</small></p>
+    </div>
+  </ng-container>
+</app-form>

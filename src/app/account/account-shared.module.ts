@@ -5,11 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BackendErrorHandlerService } from '../services/backend-error-handler.service';
 import { JwtService } from '../services/jwt.service';
 import { FormComponent } from '../shared/elements/form/form.component';
+import { SelectComponent } from '../shared/elements/select/select.component';
 
 @NgModule({
-  declarations: [FormComponent, InputComponent],
+  declarations: [FormComponent, InputComponent, SelectComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  exports: [FormComponent, InputComponent, FormsModule, ReactiveFormsModule],
+  exports: [
+    FormComponent,
+    InputComponent,
+    SelectComponent,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [JwtService, BackendErrorHandlerService],
 })
 export class AccountSharedModule {}

@@ -1,1 +1,106 @@
-<p>pets-data works!</p>
+<header class="flex items-center mb-10">
+  <h1 class="pb-2 border-b-[1px] border-b-gray-200 inline-block pr-20">Mis Mascotas</h1>
+  <button
+    (click)="openModal('addPet')"
+    class="px-5 py-1 ml-10 rounded-full border-[1px] transition-all duration-300 font-bold text-white bg-violet-400 hover:bg-violet-500">+ Agregar mascota</button>
+</header>
+<ng-container *ngIf="pets">
+  <div class="flex justify-between flex-col sm:flex-row w-full">
+    <article *ngFor="let pet of pets; let i = index" class="w-10/11 md:w-1/2 md:odd:mr-10 flex flex-col shadow-md mb-5 px-10 py-4 bg-gray-50 duration-500 hover:shadow-lg" [attr.data-index]="i">
+      <header class="w-full mb-5">
+        <h2>{{pet['Nombre']}}</h2>
+      </header>
+
+      <section class="w-full flex">
+        <figure clas="pet-image aspect-square grow">
+          <img class="grow" src="https://via.placeholder.com/100x100" alt="Pet image" width="100" height="100">
+        </figure>
+
+        <section class="pl-5">
+          <table>
+            <ng-container *ngFor="let petData of pet | keyvalue">
+              <tr *ngIf="petData.key !== 'Nombre'">
+                <th>{{petData.key}}:</th>
+                <td>{{petData.value}}</td>
+              </tr>
+            </ng-container>
+          </table>
+        </section>
+      </section>
+
+      <section class="flex justify-end mt-4">
+        <button
+          class="px-5 py-1 rounded-full border-[1px] bg-violet-400 hover:bg-violet-500 transition-all duration-300 font-bold text-white"
+          (click)="openModal('editPet', { microchipId: pet['Microchip']})"
+        >EDITAR</button>
+      </section>
+    </article>
+  </div>
+</ng-container>
+
+
+<!--  -->
+
+<app-modal
+*ngIf="editPetForm"
+[show]="showEditModalForm"
+(onCloseModal)="closeModal('editPet')"
+>
+  <h3 class="mb-5">Edita tu mascota</h3>
+  <app-form
+    [form]="editPetForm"
+    [submitFn]="editPetSubmit"
+    buttonLabel="EDITAR MACOTA"
+    [errorMessage]="editPetErrorMessage"
+    [success]="isEditPetSuccess"
+    [isModal]="true"
+    extraClasses="w-full !drop-shadow-none p-0"
+    (onCloseModal)="closeModal('editPet')"
+  >
+    <ng-container description>
+      <p>Ingresa los datos de tu nueva mascota.</p>
+    </ng-container>
+    <ng-container fields>
+      <ng-container *ngFor="let input of editPetInputs">        
+        <app-input *ngIf="input.type === 'input'" type="text" [label]="input.label" [parent]="editPetForm" [controlName]="input.controlName"></app-input>
+        <app-select *ngIf="input.type === 'select' && input.selectOptionsData"
+          [label]="input.label"
+          [parent]="editPetForm"
+          [controlName]="input.controlName"
+          [selectOptionsData]="input.selectOptionsData"></app-select>
+      </ng-container>
+    </ng-container>
+  </app-form>
+</app-modal>
+
+<app-modal
+*ngIf="addPetForm"
+[show]="showAddModalForm"
+(onCloseModal)="closeModal('addPet')"
+>
+  <h3 class="mb-5">Agrega tu mascota</h3>
+  <app-form
+    [form]="addPetForm"
+    [submitFn]="addPetSubmit"
+    buttonLabel="AGREGAR MACOTA"
+    [errorMessage]="addPetErrorMessage"
+    [success]="isAddPetSuccess"
+    [isModal]="true"
+    extraClasses="w-full !drop-shadow-none p-0"
+    (onCloseModal)="closeModal('addPet')"
+  >
+    <ng-container description>
+      <p>Ingresa los datos de tu nueva mascota.</p>
+    </ng-container>
+    <ng-container fields>
+      <ng-container *ngFor="let input of addPetInputs">        
+        <app-input *ngIf="input.type === 'input'" type="text" [label]="input.label" [parent]="addPetForm" [controlName]="input.controlName"></app-input>
+        <app-select *ngIf="input.type === 'select' && input.selectOptionsData"
+          [label]="input.label"
+          [parent]="addPetForm"
+          [controlName]="input.controlName"
+          [selectOptionsData]="input.selectOptionsData"></app-select>
+      </ng-container>
+    </ng-container>
+  </app-form>
+</app-modal>

@@ -11,15 +11,9 @@ import { LoaderService } from './services/loader.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'tpp-app';
   loading = false;
 
-  constructor(private loaderService: LoaderService) {}
-
-  ngAfterViewInit() {
-    this.loaderService.httpProgress().subscribe((status: boolean) => {
-      this.loading = status;
-    });
-  }
+  constructor(public loaderService: LoaderService) {}
 }

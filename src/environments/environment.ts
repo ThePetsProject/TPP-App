@@ -12,6 +12,12 @@ export const environment = {
     register: {
       path: ':3000/api/v1/account/register',
     },
+    petsSecure: {
+      path: ':3300/api/v1/pets/secure',
+    },
+    petsBreeds: {
+      path: ':3300/api/v1/pets/breeds',
+    },
     jwtValidate: {
       path: ':3400/api/v1/jwt/validate',
     },
@@ -19,7 +25,13 @@ export const environment = {
       path: ':3400/api/v1/jwt/refresh',
     },
     accountData: {
-      path: ':3600/api/v1/account/data',
+      path: ':3600/api/v1/account/secure/data',
+    },
+    recoverPassword: {
+      path: ':3600/api/v1/account/recover-password',
+    },
+    resetPassword: {
+      path: ':3600/api/v1/account/recover-password/reset',
     },
   },
 };
