@@ -15,6 +15,9 @@ export const environment = {
     petsSecure: {
       path: ':3300/api/v1/pets/secure',
     },
+    petsLost: {
+      path: ':3300/api/v1/pets/lost',
+    },
     petsBreeds: {
       path: ':3300/api/v1/pets/breeds',
     },

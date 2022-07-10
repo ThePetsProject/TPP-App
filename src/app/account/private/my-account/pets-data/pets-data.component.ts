@@ -87,19 +87,6 @@ export class PetsDataComponent implements OnInit {
     return selectOptions;
   }
 
-  getSizesSelectData(): SelectOptions[] {
-    let selectOptions = [] as SelectOptions[];
-
-    Object.keys(PetSizesEnum).forEach((size) => {
-      selectOptions.push({
-        selectValue: size,
-        selectLabel: PetSizesEnum[size as keyof typeof PetSizesEnum],
-      });
-    });
-
-    return selectOptions;
-  }
-
   buildSelectData(controlName: string): SelectOptions[] {
     let selectOptions = [] as SelectOptions[];
 
@@ -111,7 +98,7 @@ export class PetsDataComponent implements OnInit {
         selectOptions = this.getBreedsSelectData();
         break;
       case 'size':
-        selectOptions = this.getSizesSelectData();
+        selectOptions = this.petsService.getSizesSelectData();
         break;
 
       default:

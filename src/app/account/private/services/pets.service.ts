@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, throwError } from 'rxjs';
 import {
-  PetColorsEnum,
   PetSizesEnum,
   PetSpeciesEnum,
 } from 'src/app/shared/enums/pet-data.enum';
+import { SelectOptions } from 'src/app/shared/interfaces/select-input';
 import { environment } from 'src/environments/environment';
 
 export enum PetDataMapEnum {
@@ -22,6 +22,15 @@ export enum PetDataMapEnum {
 interface BreedData {
   breedId: string;
   breedName: string;
+}
+
+export interface LostPetRaw {
+  petId: string;
+  specie: string;
+  size: string;
+  status: 'lost' | 'found';
+  lng: number;
+  lat: number;
 }
 
 export interface BreedsDataRaw {
@@ -163,7 +172,26 @@ export class PetsService {
   }
 
   /**
-   * Save new pet data
+   * Returns sizes as select options
+   * @returns Array of SelecOptions
+   */
+  getSizesSelectData(): SelectOptions[] {
+    let selectOptions = [] as SelectOptions[];
+
+    Object.keys(PetSizesEnum).forEach((size) => {
+      selectOptions.push({
+        selectValue: size,
+        selectLabel: PetSizesEnum[size as keyof typeof PetSizesEnum],
+      });
+    });
+
+    return selectOptions;
+  }
+
+  /**
+   * Save new pet
+   * @param petData PetDataRaw type
+   * @returns
    */
 
   setNewPet(petData: PetDataRaw) {
@@ -204,5 +232,43 @@ export class PetsService {
           }));
         })
       );
+  }
+
+  /**
+   * Set lost pet
+   */
+  saveLostPet(petData: any) {
+    const saveLostPetUrl = `${environment.config.baseUrl}${environment.config.petsLost.path}`;
+
+    return this.httpClient
+      .post(saveLostPetUrl, {
+        petData,
+      })
+      .pipe(
+        catchError((error) => {
+          const { status } = error;
+          return throwError(() => ({
+            message: error.message,
+            status,
+          }));
+        })
+      );
+  }
+  /**
+   * Get lost pets
+   */
+  getLostPets() {
+    const getLostPetsUrl = `${environment.config.baseUrl}${environment.config.petsLost.path}`;
+
+    return this.httpClient.get<{ lostPets: LostPetRaw[] }>(getLostPetsUrl).pipe(
+      map((response) => response.lostPets),
+      catchError((error) => {
+        const { status } = error;
+        return throwError(() => ({
+          message: error.message,
+          status,
+        }));
+      })
+    );
   }
 }

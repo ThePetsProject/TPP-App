@@ -28,7 +28,18 @@ const routes: Routes = [
         (m) => m.MyAccountModule
       ),
   },
-  { path: 'recuperar-clave', loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule) },
+  {
+    path: 'recuperar-clave',
+    loadChildren: () =>
+      import('./pages/reset-password/reset-password.module').then(
+        (m) => m.ResetPasswordModule
+      ),
+  },
+  {
+    path: 'mascotas-perdidas',
+    loadChildren: () =>
+      import('./pages/pets-map/pets-map.module').then((m) => m.PetsMapModule),
+  },
   { path: '**', redirectTo: '' },
 ];
 

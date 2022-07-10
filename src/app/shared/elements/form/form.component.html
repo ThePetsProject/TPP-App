@@ -8,9 +8,7 @@
     <h1>{{formTitle}}</h1>
   </header>
 
-  <div class="mb-5">
-    <ng-content select="[description]"></ng-content>
-  </div>
+  <ng-content select="[description]"></ng-content>
 
   <ng-content select="[fields]"></ng-content>
 
@@ -23,6 +21,7 @@
       (click)="closeModal()"
     >{{cancelButtonLabel}}</button>
 
+    <ng-content buttonSide></ng-content>
     
     <button
       type="submit"

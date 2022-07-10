@@ -1,0 +1,103 @@
+<div class="h-screen">
+  <header class="flex items-center mb-10">
+    <h1 class="pb-2 border-b-[1px] border-b-gray-200 inline-block pr-20">Mascotas perdidas</h1>
+    <button
+      (click)="openLostModal()"
+      class="px-5 py-1 ml-10 rounded-full border-[1px] transition-all duration-300 font-bold text-white bg-violet-300 hover:bg-red-500">Econtré una mascota</button>
+    <button
+      (click)="openLostModal()"
+      class="px-5 py-1 ml-2 rounded-full border-[1px] transition-all duration-300 font-bold text-white bg-violet-300 hover:bg-red-500">Se perdió mi mascota</button>
+  </header>
+
+  <div id="map" class="h-1/2"></div>
+
+  <section>
+    <header class="mt-10 mb-5">
+      <h2>Filtrar búsqueda</h2>
+    </header>
+    <app-form
+    [form]="petsFilterForm"
+    [submitFn]="filterPets"
+    buttonLabel="FILTRAR"
+    extraClasses="w-full !drop-shadow-none !p-0 !mt-0"
+  >
+    <ng-container fields>
+      <app-select
+          label="Especie"
+          [parent]="petsFilterForm"
+          controlName="specie"
+          [selectOptionsData]="specieSelectData"></app-select>
+      <app-select
+          label="Tamaño"
+          [parent]="petsFilterForm"
+          controlName="size"
+          [selectOptionsData]="sizeSelectData"></app-select>
+      <app-select
+          label="Estado"
+          [parent]="petsFilterForm"
+          controlName="status"
+          [selectOptionsData]="statusSelectData"></app-select>
+    </ng-container>
+
+    <ng-container buttonSide>
+      <button
+        type="button"
+        (click)="resetFilter()"
+        [disabled]="false"
+        class="mr-5 px-5 py-1 rounded-full border-[1px] transition-all duration-300 font-bold text-white"
+        [class.bg-slate-100]="!filtered"
+        [class.cursor-not-allowed]="!filtered"
+        [class.text-slate-300]="!filtered"
+        [class.hover:bg-violet-500]="filtered"
+        [class.bg-violet-400]="filtered"
+      >REESTABLECER FILTRO</button>
+    </ng-container>
+  </app-form>
+    
+  </section>
+</div>
+
+<app-modal
+*ngIf="addLostPetForm"
+[show]="showAddLostPetModalForm"
+(onCloseModal)="closeModal()"
+>
+  <h3 class="mb-5">Mascota perdida</h3>
+
+  <div class="mb-2 p-2 rounded-sm border-[1px] border-gray-100"><p><small>{{lostMapAddress}}</small></p></div>
+  <div class="w-full relative h-[200px]">
+    <div class="absolute top-0 bottom-0 w-full" #mapLost id="map-lost"></div>
+  </div>
+
+  <app-form
+    [form]="addLostPetForm"
+    [submitFn]="saveLostPet"
+    buttonLabel="ENVIAR"
+    [errorMessage]="addLostPetErrorMessage"
+    [success]="isAddLostPetSuccess"
+    [isModal]="true"
+    extraClasses="w-full !drop-shadow-none !p-0 !mt-0"
+    (onCloseModal)="closeModal()"
+  >
+    <ng-container description>
+      <p>Ingresa los datos de la mascota.</p>
+    </ng-container>
+    <ng-container fields>
+      <app-select
+          label="Especie"
+          [parent]="addLostPetForm"
+          controlName="specie"
+          [selectOptionsData]="specieSelectData"></app-select>
+      <app-select
+          label="Tamaño"
+          [parent]="addLostPetForm"
+          controlName="size"
+          [selectOptionsData]="sizeSelectData"></app-select>
+      <app-select
+          label="Estado"
+          [parent]="addLostPetForm"
+          controlName="status"
+          [selectOptionsData]="statusSelectData"></app-select>
+    </ng-container>
+  </app-form>
+</app-modal>
