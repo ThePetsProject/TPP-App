@@ -9,13 +9,13 @@ export const environment = {
       path: '/api/v1/account/register',
     },
     petsSecure: {
-      path: '/api/v1/account/pets/secure',
+      path: '/api/v1/pets/secure',
     },
     petsLost: {
       path: '/api/v1/pets/lost',
     },
     petsBreeds: {
-      path: '/api/v1/account/pets/breeds',
+      path: '/api/v1/pets/breeds',
     },
     jwtValidate: {
       path: '/api/v1/jwt/validate',
