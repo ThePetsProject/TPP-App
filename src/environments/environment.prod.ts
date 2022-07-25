@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   config: {
-    baseUrl: 'https://thepetsproject.tk',
+    baseUrl: 'https://thepetsproject.org',
     login: {
       path: '/api/v1/account/login',
     },
